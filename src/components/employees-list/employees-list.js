@@ -12,15 +12,17 @@ class EmployeesList extends Component {
 
     render(){
 
-        const { data, deleteItem, onToggleProps} = this.props;
+        const { data, deleteItem, onToggleProps, onChangeSalary} = this.props;
 
         const elements = data.map(item =>  {
             const { id, ...itemProps } = item;
 
             return <EmployeesListItem key={id} 
-                                    {...itemProps} 
+                                    {...itemProps}
+                                    id={id}
                                     deleteItem = {() => deleteItem(id)}
-                                    onToggleProps={(e) => onToggleProps(id, e.currentTarget.getAttribute('data-toggle'))}/>
+                                    onToggleProps={(e) => onToggleProps(id, e.currentTarget.getAttribute('data-toggle'))}
+                                    onChangeSalary={onChangeSalary}/>
         });
     
         return (
