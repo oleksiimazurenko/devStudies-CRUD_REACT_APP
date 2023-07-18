@@ -18,11 +18,12 @@ class App extends Component {
         {name: 'Olha', salary: 5500, increase: false, rise: false, id: 3}
       ],
       idEmployees: 4,
-      term: ''
+      term: '',
+      filterProps: 'all'
     }
   }
 
-
+  //-------------------------------------------------------------------------
 
   deleteItem = (id) => {
     this.setState(({data}) => ({
@@ -42,6 +43,7 @@ class App extends Component {
     clearForm();
   }
 
+  //-------------------------------------------------------------------------
 
   onToggleProps = (id, props) => {
     this.setState(({ data }) => ({
@@ -49,15 +51,31 @@ class App extends Component {
     }));
   }
 
+  //-------------------------------------------------------------------------
+
   searchEmp = (items, term) => {
-    if(term.length === 0) return items;
-    return items.filter(item => item.name.indexOf(term) > -1)
+    if(term.length === 0) return this.buttonFilter(items);
+    return this.buttonFilter(items.filter(item => item.name.indexOf(term) > -1));
   }
 
   onUpdateSearch = (term) => this.setState(() => ({term}));
 
+  //-------------------------------------------------------------------------
+
+  buttonFilter = (data) => {
+    const {filterProps} = this.state;
+    if(filterProps === 'rise') return data.filter(item => item.rise === true);
+    if(filterProps === 'salary') return data.filter(item => item.salary > 1000);
+    return data;
+    
+  }
+
+  onFilterProps = (filterProps) => this.setState({filterProps});
+
+  //-------------------------------------------------------------------------
+
   render(){
-    const {data, term} = this.state;
+    const {data, term, filterProps} = this.state;
     const totalEmployees = this.state.data.length;
     const totalEmployeesIncrease = this.state.data.filter(item => item.increase).length;
 
@@ -70,7 +88,7 @@ class App extends Component {
   
           <div className="search-panel">
               <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-              <AppFilter/>
+              <AppFilter onFilterProps={this.onFilterProps} filterProps={filterProps}/>
           </div>
           
           <EmployeesList data={visibleData} 
