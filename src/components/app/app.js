@@ -31,28 +31,16 @@ class App extends Component {
 
   addItem = (e, name, salary, clearForm) => {
     e.preventDefault();
-    
-    this.setState(({data, idEmployees}) => ({
-      data: [...data, {name, salary, increase: false, id: idEmployees}],
-      idEmployees: idEmployees + 1
-    }));
+
+    if(name.length > 2 && salary.length > 2){
+      this.setState(({data, idEmployees}) => ({
+        data: [...data, {name, salary, increase: false, id: idEmployees}],
+        idEmployees: idEmployees + 1
+      }));
+    }
     clearForm();
   }
 
-
-
-
-  // onIncrease = (id) => {
-  //   this.setState(({ data }) => ({
-  //     data: data.map(item => item.id === id ? { ...item, increase: !item.increase } : item)
-  //   }));
-  // };
-
-  // onRise = (id) => {
-  //   this.setState(({ data }) => ({
-  //     data: data.map(item => item.id === id ? { ...item, rise: !item.rise } : item)
-  //   }));
-  // }
 
   onToggleProps = (id, props) => {
     this.setState(({ data }) => ({
@@ -81,8 +69,7 @@ class App extends Component {
           
           <EmployeesList data={ data } 
                         deleteItem={ this.deleteItem } 
-                        onIncrease={ this.onIncrease } 
-                        onRise={ this.onRise }/>
+                        onToggleProps={ this.onToggleProps }/>
 
           <EmployeesAddForm addItem={ this.addItem }/>
   

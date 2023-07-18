@@ -11,11 +11,17 @@ class EmployeesAddForm extends Component {
         };
     }
 
-    onValueChange = (e) => {
+    
+
+    //Двойное связывание, управляемые компоненты
+    onValueChange = (e) => { 
         this.setState({
             [e.target.name]: e.target.value
         })
     }
+    //------------------------------------------
+
+
 
     clearForm = () => {
         this.setState({
@@ -38,7 +44,7 @@ class EmployeesAddForm extends Component {
                     <input type="text"
                         className="form-control new-post-label"
                         name='name'
-                        value={name} // Всегда нужно делать управляемые компоненты, двлйное связывание
+                        value={name} // Всегда нужно делать управляемые компоненты, двойное связывание
                         placeholder="Как его зовут?" 
                         onChange={this.onValueChange}/>
                     <input type="number"
