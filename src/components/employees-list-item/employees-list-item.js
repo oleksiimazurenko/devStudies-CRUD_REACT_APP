@@ -16,7 +16,7 @@ class EmployeesListItem extends Component {
         this.setState({salary: sliceValue});
         onChangeSalary(id, sliceValue);
     }
-
+    
     render(){
         const { name, increase, rise, deleteItem, onToggleProps } = this.props;
         const { salary } = this.state;
